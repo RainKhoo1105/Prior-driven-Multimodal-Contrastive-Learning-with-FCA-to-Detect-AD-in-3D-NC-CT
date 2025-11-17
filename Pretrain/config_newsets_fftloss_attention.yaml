@@ -1,0 +1,48 @@
+# batch_size: 8
+batch_size: 16
+epochs: num of epochs
+eval_every_n_epochs: 2
+fine_tune_from: Jan16_02-27-36_edu-GPU-Linux
+log_every_n_steps: 2
+learning_rate: 1e-5
+weight_decay: 1e-6
+fp16_precision: True
+truncation: True
+
+model:
+  in_width: 80
+  in_height: 80
+  in_depth: 128
+  out_dim: 512
+  res_base_model: "resnet50"
+  n_class: 2
+  bert_base_model: 'emilyalsentzer/Bio_ClinicalBERT'
+  freeze_layers: [0, 1, 2, 3, 4, 5]
+  do_lower_case: False
+  
+
+ 
+  
+dataset:
+  load_path: xxx/datasets/Aorta # path to the dataset
+  timestamp: 2025-03-28-10:57:26 # timestamp of the dataset
+  threshold:
+    ct: [-100, 300]
+    cta: [-100, 800]
+  discard: None
+  roi: False
+  # roi: True
+  text_mode: 'all'
+  depth: 128
+
+loss:
+  temperature: 0.1
+  use_cosine_similarity: True
+  alpha_weight: 0.75
+
+fca_loss_weight: [0.9,0.1] #frt:fft
+
+con_cns:
+  w_con: 1.0
+  w_cns: 0.1
+

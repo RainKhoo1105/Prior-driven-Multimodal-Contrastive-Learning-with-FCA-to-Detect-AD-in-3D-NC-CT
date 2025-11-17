@@ -1,0 +1,43 @@
+dataset:
+  load_path: xx/datasets/Aorta
+  threshold:
+    ct: [-100, 300]
+    cta: [-100, 800]
+    # ct: [0, 300]
+    # cta: [0, 800]
+  # discard: 10
+  discard: None  
+  roi: False
+  text_mode: 'all'
+  depth: 128
+  
+  timestamp: 2025-03-28-10:57:26 #dataset timestamp
+
+model:
+  wrapper:
+    version: .cache/clip-vit-large-patch14
+    drop_prob: 0.5
+  text_encoder:
+    version: .cache/clip-vit-large-patch14
+    device: cuda
+    max_length: 77
+    freeze: True
+    use_vision: False
+  ctanet:
+    patch_size: 4
+    # patch_size: 32
+    in_chans: 1
+    num_classes: 3
+    num_labels: 2
+    depths: [2, 2, 9, 2]
+    depths_decoder: [2, 9, 2, 2]
+    dims: [96, 192, 384, 768]
+    dims_decoder: [768, 384, 192, 96]
+    dims_corss: [192, 384, 768, 768]
+    d_state: 16
+    drop_rate: 0.
+    attn_drop_rate: 0.
+    drop_path_rate: 0.1
+    norm_layer: LayerNorm
+    patch_norm: True
+    use_checkpoint: False

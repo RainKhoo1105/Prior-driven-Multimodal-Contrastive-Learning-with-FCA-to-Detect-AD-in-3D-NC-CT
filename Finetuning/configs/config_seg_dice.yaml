@@ -1,0 +1,52 @@
+# batch_size: 8
+batch_size: 16
+epochs: num of epochs
+eval_every_n_epochs: 2
+fine_tune_from: Jan16_02-27-36_edu-GPU-Linux
+log_every_n_steps: 2
+learning_rate: 1e-5
+weight_decay: 1e-6
+fp16_precision: True
+truncation: True
+
+model:
+  in_width: 128
+  # in_width: 80
+  in_height: 128
+  # in_height: 80
+  in_depth: 128
+  out_dim: 512
+  res_base_model: "resnet50"
+  n_class: 3
+  bert_base_model: 'emilyalsentzer/Bio_ClinicalBERT'
+  freeze_layers: [0, 1, 2, 3, 4, 5]
+  do_lower_case: False
+  pretrain_path: ../.cache/resnet/resnet_50.pth #resnet50 pretrain path
+  freeze_encoder: False
+  
+ 
+  
+dataset:
+  load_path: xx/traindata
+  
+  timestamp: 2025-02-18-16:12:57 #datasets timestamp
+
+  threshold:
+    # ct: [-100, 300]
+    # cta: [-100, 800]
+    ct: [0,300]
+    cta: [0,800]
+   
+  discard: None
+  roi: False
+  # roi: True
+  text_mode: 'all'
+  depth: 128
+  
+cross_dice_weight: [0.9,0.1] #cross:dice
+do_bg: False
+loss:
+  temperature: 0.1
+  use_cosine_similarity: True
+  alpha_weight: 0.75
+
